@@ -3,9 +3,12 @@ import net.miginfocom.swing.MigLayout; // If you're just using this one class
 import javax.swing.*;
 import java.awt.*;
 
+
 public class JScrollablePanel extends JScrollPane {
 
-    private JPanel mainPanelGame = null;
+    public JPanel mainPanelGame ;
+    public static JPanel actuallCheckPanel ;
+
 
     public JScrollablePanel(){
 
@@ -31,17 +34,24 @@ public class JScrollablePanel extends JScrollPane {
         // mainPanelGame.setPreferredSize(new Dimension( 400,640));
         mainPanelGame.setBackground( new Color(32, 32, 32, 213) );
 
+
         setViewportView(mainPanelGame);
         setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         setOpaque(false);
-        setBounds(330, 35, 505, 635);
+        setBounds(300, 35, 535, 635);
         setBorder(BorderFactory.createEmptyBorder());
         getViewport().setBackground(new Color(255, 255, 255, 0));
+
     }
 
-    public void addPanelPass(JPanel addPanel){
-        mainPanelGame.add(addPanel, "wrap");
+    public JPanel getMainPanelGame() {
+        return mainPanelGame;
+    }
+
+
+    public void addPanelPass(JPanel addPanel, String  how){
+        mainPanelGame.add(addPanel, how);
         getViewport().revalidate();
         getViewport().repaint();
     }
