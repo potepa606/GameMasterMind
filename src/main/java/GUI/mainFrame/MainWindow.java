@@ -2,6 +2,7 @@ package GUI.mainFrame;
 
 
 import managePanels.Managment;
+import music.Music;
 
 import javax.swing.*;
 import java.io.File;
@@ -19,6 +20,7 @@ public class MainWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setResizable(false);
+        Music.FirsSound();
     }
 
 
