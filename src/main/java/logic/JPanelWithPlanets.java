@@ -9,16 +9,10 @@ public class JPanelWithPlanets extends JPanel {
 
     public JPanelWithPlanets(){
         setOpaque(false);
-       // planetsPanel.setLayout( new MigLayout("alignx center"));
         setBackground( new Color(32, 32, 32, 213) );
-
-       // setViewportView(planetsPanel);
-       // setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-      //  setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         setOpaque(false);
         setBounds(35, 35, 250, 300);
         setBorder(BorderFactory.createEmptyBorder());
-        //getViewport().setBackground(new Color(255, 255, 255, 0));
     }
 
     @Override

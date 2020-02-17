@@ -45,6 +45,10 @@ public class LoginPanel extends JPanel  {
 
 
     static {
+        ToolTipManager.sharedInstance().setInitialDelay(0);
+        ToolTipManager.sharedInstance().setDismissDelay(1000);
+        ToolTipManager.sharedInstance().isLightWeightPopupEnabled();
+
         for (Planets planet:Planets.values()) {
             Planet p = planet.getPlanet();
             p.setSize(20);
@@ -201,6 +205,7 @@ public class LoginPanel extends JPanel  {
         easyStatePanel.setOpaque(false);
         easyStatePanel.setBackground( new Color(255, 255, 255, 0) );
         easyStatePanel.addMouseListener(new EasyChangeListener());
+        easyStatePanel.setToolTipText("<html>Układ planet składajacy się z 4 ciał niebieskich.<br>Nie mogą się powtarzać</html>");
         levelsPanel.add(easyStatePanel);
 
         mediumStatePanel = new JPanel(){
@@ -218,6 +223,8 @@ public class LoginPanel extends JPanel  {
         mediumStatePanel.setOpaque(false);
         mediumStatePanel.setBackground( new Color(255, 255, 255, 0) );
         mediumStatePanel.addMouseListener(new MediumChangeListener());
+        mediumStatePanel.setToolTipText("<html>Układ planet składajacy się z 4 ciał niebieskich.<br>Objekt może się raz powtózyć</html>");
+
         levelsPanel.add(mediumStatePanel);
 
         hardStatePanel = new JPanel(){
@@ -234,6 +241,8 @@ public class LoginPanel extends JPanel  {
         hardStatePanel.setOpaque(false);
         hardStatePanel.setBackground( new Color(255, 255, 255, 0) );
         hardStatePanel.addMouseListener(new HardChangeListener());
+
+
         levelsPanel.add(hardStatePanel);
 
 
@@ -256,7 +265,6 @@ public class LoginPanel extends JPanel  {
         samplePanel.setBackground( new Color(255, 255, 255, 0) );
         //samplePanel.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.lightGray),"<html><font color='white'></font></html>"));
         samplePanel.add(dodajLabel(" <html><font color='white'>Ilość prób:</font></html> ", 20,210,15));
-
 
 
 
@@ -317,10 +325,10 @@ public class LoginPanel extends JPanel  {
                 super.paintComponent(g);
             }
         };
-        passworPanel.setBounds(50, 300, 255, 80);
+        passworPanel.setBounds(26, 300, 300, 80);
         passworPanel.setOpaque(false);
         passworPanel.setBackground( new Color(255, 255, 255, 0) );
-        passworPanel.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.lightGray),"<html><font color='white'>Haslo</font></html>"));
+        passworPanel.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.lightGray),"<html><font color='white'>Hasło</font></html>"));
         return passworPanel;
     }
     private JPanel body_buttonsPanel(){
@@ -351,7 +359,8 @@ public class LoginPanel extends JPanel  {
         buttonsPanel.add(startGameButton);
         startGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               if(password.size() >=4) {
+
+               if(password.size() >=4 && GamePanel.showLevel() && warningWindows()) {
                    GamePanel.loadStartPlanets();
                    setPanel(2);
                }
@@ -360,6 +369,24 @@ public class LoginPanel extends JPanel  {
 
 
         return buttonsPanel;
+    }
+
+    public static int setPlanetDepdecyLevel(){
+        if(selectedLevelString.equals("easy")){
+            return 4;
+        }else if(selectedLevelString.equals("medium")){
+            return 4;
+        }else if(selectedLevelString.equals("hard")){
+            return 5;
+        }
+        return 0;
+    }
+    public  boolean warningWindows(){
+        if(setPlanetDepdecyLevel() != password.size()){
+            JOptionPane.showMessageDialog(this, "Liczba Planet jest niezgodna z levelem","Błąd",JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }else
+            return true;
     }
 
     //Left Panel
@@ -382,15 +409,7 @@ public class LoginPanel extends JPanel  {
         return jTextField;
     }
 
-    public static void setPlanetDepdecyLevel(){
 
-        if(pokazstany().equals("Easy")){
-
-
-        }
-
-
-    }
 
     public static void reload(){
         passworPanel.revalidate();

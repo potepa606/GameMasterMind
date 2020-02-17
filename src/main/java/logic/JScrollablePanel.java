@@ -7,7 +7,6 @@ import java.awt.*;
 public class JScrollablePanel extends JScrollPane {
 
     public JPanel mainPanelGame ;
-    public static JPanel actuallCheckPanel ;
 
 
     public JScrollablePanel(){

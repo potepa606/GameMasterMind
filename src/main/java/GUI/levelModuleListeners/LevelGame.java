@@ -11,6 +11,7 @@ public class LevelGame {
     public static BufferedImage easyIMG, easyOnIMG, mediumIMG,mediumOnIMG, hardIMG,hardOnIMG;
     public static BufferedImage stateEasy, stateMedium, stateHard;
     public static boolean[] levelList = {false,false,false};
+    public static String selectedLevelString = "";
 
     static {
         try {
@@ -41,24 +42,29 @@ public class LevelGame {
         return dimg;
     }
 
-    public static String pokazstany(){
-        String stanOstateczny = "Nic nie wybrano";
+    public static BufferedImage pokazstany(){
+        // return elected level
+        BufferedImage selectedLevel = null;
         for(int i = 0 ; i<levelList.length;i++){
             if(levelList[i]){
                 switch (i) {
                     case 0:
-                        stanOstateczny ="Easy";
+                        selectedLevelString = "easy";
+                        selectedLevel = easyOnIMG;
                         break;
                     case 1:
-                        stanOstateczny ="Medium";
+                        selectedLevelString = "medium";
+                        selectedLevel = mediumOnIMG;
                         break;
                     case 2:
-                        stanOstateczny ="Hard";
+                        selectedLevelString = "hard";
+                        selectedLevel = hardOnIMG;
                         break;
                 }
             }
         }
-        return stanOstateczny;
+
+        return selectedLevel;
     }
 }
 

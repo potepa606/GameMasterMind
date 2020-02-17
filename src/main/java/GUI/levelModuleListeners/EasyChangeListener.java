@@ -30,6 +30,7 @@ public class EasyChangeListener extends MouseAdapter {
             levelList[2]=false;
 
         }
-       // stan.setText(pokazstany());
+        pokazstany();
+        System.out.println( selectedLevelString );
     }
 }

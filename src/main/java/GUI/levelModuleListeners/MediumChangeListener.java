@@ -22,7 +22,8 @@ public class MediumChangeListener extends MouseAdapter {
             hardStatePanel.getGraphics().drawImage(stateHard, 0, 0, null);
             levelList[2] = false;
         }
-       // stan.setText(pokazstany());
+        pokazstany();
+        System.out.println( selectedLevelString );
 
     }
 }

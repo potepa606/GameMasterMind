@@ -21,7 +21,8 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import static GUI.levelModuleListeners.LevelGame.stateMedium;
+import static GUI.levelModuleListeners.LevelGame.*;
+import static GUI.panels.LoginPanel.setPlanetDepdecyLevel;
 import static GUI.panels.StartPanel.backgound;
 import static GUI.widnowsSize.Size.WINDOW_HEIGHT;
 import static GUI.widnowsSize.Size.WINDOW_WIDTH;
@@ -32,12 +33,12 @@ public class GamePanel extends JPanel {
 
     public  static JScrollablePanel myGameScrollablePanel = new JScrollablePanel();
     public  static JPanelWithPlanets zbiórWszysktichJPanel = new JPanelWithPlanets();
-
     public static ArrayList<Planet> plentyUsunietezZGlownego = new ArrayList<Planet>();
-
     public  static  JPanel testPanel , lampInfoPanel;
+    public static JLabel probaLabel, iconLevel;
     public static ArrayList<Planet> planetyDoZamrozenia = new ArrayList<Planet>();
 
+    public static int  proba = 0 ;
 
 
 
@@ -51,32 +52,39 @@ public class GamePanel extends JPanel {
         myGameScrollablePanel.addPanelPass(addPanelInfo(),"wrap");
 
 
-
-
-
-
-        JButton testBut = new MyButton("zatwierdz",30,130,500);
-        testBut.addActionListener(new ActionListener() {
+        JButton checjButton = new MyButton("Sprawdź",34,163,463);
+        checjButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
                 if(testPanel.getComponentCount() >= 4){
                     for (Planet p:plentyUsunietezZGlownego)
                         zbiórWszysktichJPanel.add(p);
                     plentyUsunietezZGlownego.clear();
-
-
                     sampleLampCheck();
                     myGameScrollablePanel.addPanelPass(testaddPanel(),"");
                     myGameScrollablePanel.addPanelPass(addPanelInfo(),"wrap");
                     isCorectPasswrod();
-
-
+                    probaLabel.setText((++proba) ==0 ? "" : "<html><b>Próba "+(proba)+"</html>");
 
                 }
                 reload();
             }
         });
-        add(testBut);
+        add(checjButton);
+
+        probaLabel = new JLabel();
+        probaLabel.setFont(new Font("Verdana", Font.PLAIN, 23));
+        probaLabel.setBounds(80,365, 120,50);
+        probaLabel.setForeground(Color.white);
+        add(probaLabel);
+
+        iconLevel = new JLabel();
+        iconLevel.setBounds(215,350, 80,80);
+        iconLevel.setOpaque(false);
+
+        add(iconLevel);
+
+
+
     }
 
     public JPanel testaddPanel(){
@@ -151,8 +159,7 @@ public class GamePanel extends JPanel {
         }
     }
     public static void setImageLampGroup(int correctPlanet, int contain){
-
-        LampInfo[] lampGroup = new LampInfo[4];
+        LampInfo[] lampGroup = new LampInfo[setPlanetDepdecyLevel()];
 
         for(int i=0; i<correctPlanet; i++){
             lampGroup[i] = new LampInfo(green_Lamp,35,25);
@@ -164,13 +171,18 @@ public class GamePanel extends JPanel {
             lampGroup[i] = new LampInfo(empty_Lamp,35,25);
         }
 
-        for (LampInfo lampInfo: lampGroup)
-            lampInfoPanel.add(lampInfo, "wrap");
 
+        String wrap="";
+        for(int i = 0 ; i < lampGroup.length;i++){
+            if(lampGroup.length == 4)
+                wrap = "wrap";
+            else if(i%2!=0 && lampGroup.length > 4)
+                wrap = "wrap";
+            lampInfoPanel.add(lampGroup[i], wrap);
+            wrap="";
+        }
 
     }
-
-
     public static void sampleLampCheck(){
         ArrayList<Planet> pass = LoginPanel.password;
         ArrayList<Planet> samplePass = planetyDoZamrozenia;
@@ -199,7 +211,21 @@ public class GamePanel extends JPanel {
         setImageLampGroup(correctPlanet,contain);
 
     }
-
+    public static boolean showLevel(){
+        if(selectedLevelString.equals("easy")) {
+            iconLevel.setIcon(new javax.swing.ImageIcon(LevelGame.resize(easyOnIMG, 70, 70)));
+            return true;
+        }
+        else if(selectedLevelString.equals("medium")){
+            iconLevel.setIcon(new javax.swing.ImageIcon(LevelGame.resize(mediumOnIMG, 70, 70)));
+            return true;
+        }
+        else if(selectedLevelString.equals("hard")){
+            iconLevel.setIcon(new javax.swing.ImageIcon(LevelGame.resize(hardOnIMG, 70, 70)));
+            return true;
+        }
+        return false;
+    }
 
 
 
@@ -208,8 +234,9 @@ public class GamePanel extends JPanel {
         myGameScrollablePanel.repaint();
         zbiórWszysktichJPanel.revalidate();
         zbiórWszysktichJPanel.repaint();
+        probaLabel.revalidate();
+        probaLabel.repaint();
     }
-
     public static void loadStartPlanets(){
             for (final Planet planet: LoginPanel.allPlanetsArrList) {
                 Planet newPlanet = new Planet(planet.getNamePlanet(),planet.getImagePlanet(),50);
@@ -217,7 +244,6 @@ public class GamePanel extends JPanel {
                 zbiórWszysktichJPanel.add(newPlanet);
             }
     }
-
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(WINDOW_WIDTH.getSize() ,WINDOW_HEIGHT.getSize());

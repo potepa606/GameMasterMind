@@ -7,6 +7,7 @@ import static GUI.panels.LoginPanel.*;
 import static GUI.levelModuleListeners.LevelGame.*;
 
 public class HardChangeListener extends MouseAdapter {
+
     @Override
     public void mouseClicked(MouseEvent e) {
         if(!levelList[2]){
@@ -23,6 +24,7 @@ public class HardChangeListener extends MouseAdapter {
             mediumStatePanel.getGraphics().drawImage(stateMedium, 0, 0, null);
             levelList[1] = false;
         }
-        //stan.setText(pokazstany());
+        pokazstany();
+        System.out.println( selectedLevelString );
     }
 }

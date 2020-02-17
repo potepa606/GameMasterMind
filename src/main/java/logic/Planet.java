@@ -17,32 +17,25 @@ public class Planet extends JLabel {
 
 
 
-    public Planet(final String namePlanet, BufferedImage imagePlanet, int size) {
-//        setPreferredSize(new Dimension(size,size));
-
-//       // setBorder(BorderFactory.createEmptyBorder());
-//        setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.lightGray),"<html><font color='white'></font></html>"));
-//
-//
-//        JLabel testLabel = new JLabel("<html><b> " + namePlanet + "</b></html>",  SwingConstants.CENTER);
-//        testLabel.setFont(new Font("Verdana", Font.PLAIN, 13));
-//        testLabel.setForeground(Color.WHITE);
-//        add(testLabel, "alignx center, wrap");
-        setIcon(new javax.swing.ImageIcon(LevelGame.resize(imagePlanet, size, size)));
+    public Planet(final String namePlanet, BufferedImage imagePlanet){
         setText("<html><b> <font color='white'> " + namePlanet + " </font></b></html>");
         setHorizontalTextPosition(JLabel.CENTER);
         setVerticalTextPosition(JLabel.BOTTOM);
-
         setOpaque(false);
         setBackground( new Color(255, 255, 255, 0) );
-
+        setIcon(new javax.swing.ImageIcon(imagePlanet));
         this.imagePlanet = imagePlanet;
         this.namePlanet = namePlanet;
-        this.size = size;
-
-
 
     }
+
+    public Planet(final String namePlanet, BufferedImage imagePlanet, int size) {
+        this(namePlanet,imagePlanet);
+        this.size = size;
+        setIcon(new javax.swing.ImageIcon(LevelGame.resize(imagePlanet, size, size)));
+    }
+
+
 
 
     public BufferedImage getImagePlanet() {

@@ -23,7 +23,8 @@ public class PlanetsListeners extends MouseAdapter {
         final Planet p = new Planet(planet.getNamePlanet(),planet.getImagePlanet(),planet.getSizes());
         p.setFontTitle(10);
 
-        if(password.size() < 4){
+        if(password.size() < setPlanetDepdecyLevel()){
+            p.setSize(planet.getSizes()+10);
             passworPanel.add(p);
             password.add(p);
             ballsPanel.remove(planet);
