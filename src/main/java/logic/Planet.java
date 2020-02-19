@@ -14,7 +14,7 @@ public class Planet extends JLabel {
     private BufferedImage imagePlanet ;
     private String namePlanet;
     private int size;
-
+    private boolean stanAktualny;
 
 
     public Planet(final String namePlanet, BufferedImage imagePlanet){
@@ -36,7 +36,13 @@ public class Planet extends JLabel {
     }
 
 
+    public boolean isStanAktualny() {
+        return stanAktualny;
+    }
 
+    public void setStanAktualny(boolean stanAktualny) {
+        this.stanAktualny = stanAktualny;
+    }
 
     public BufferedImage getImagePlanet() {
         return imagePlanet;

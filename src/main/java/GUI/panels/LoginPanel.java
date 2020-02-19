@@ -4,7 +4,7 @@ import GUI.levelModuleListeners.EasyChangeListener;
 import GUI.levelModuleListeners.HardChangeListener;
 import GUI.levelModuleListeners.LevelGame;
 import GUI.levelModuleListeners.MediumChangeListener;
-import GUI.panels.listeners.PlanetsListeners;
+import GUI.panels.listeners.PlanetsListeners_LoginPanel;
 import GUI.styles.MyButton;
 import logic.Planet;
 import logic.Planets;
@@ -14,14 +14,12 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import static GUI.levelModuleListeners.LevelGame.*;
 import static GUI.widnowsSize.Size.WINDOW_HEIGHT;
 import static GUI.widnowsSize.Size.WINDOW_WIDTH;
 import static managePanels.Managment.setPanel;
-import static logic.LoadComponents.*;
 
 
 public class LoginPanel extends JPanel  {
@@ -31,21 +29,19 @@ public class LoginPanel extends JPanel  {
     public static JPanel passworPanel, ballsPanel;
 
     private JLabel vsComputerLabel,secondPlayerLabel;
-    private JTextField secondPlayerName;
+    public static JTextField playerName, secondPlayerName;
     private JCheckBox isMultiPlayer;
 
     private JLabel rounds;
-    private static short counterRounds=2;
+    public static short counterRounds=2;
 
 
     public static JPanel easyStatePanel ,mediumStatePanel, hardStatePanel;
     public static ArrayList<Planet> allPlanetsArrList = new ArrayList<Planet>();
     public static ArrayList<Planet> password = new ArrayList<Planet>();
 
-
-
     static {
-        ToolTipManager.sharedInstance().setInitialDelay(0);
+        ToolTipManager.sharedInstance().setInitialDelay(50);
         ToolTipManager.sharedInstance().setDismissDelay(1000);
         ToolTipManager.sharedInstance().isLightWeightPopupEnabled();
 
@@ -53,16 +49,13 @@ public class LoginPanel extends JPanel  {
             Planet p = planet.getPlanet();
             p.setSize(20);
             p.setFontTitle(9);
-            p.addMouseListener(new PlanetsListeners(p));
+            p.addMouseListener(new PlanetsListeners_LoginPanel(p));
             allPlanetsArrList.add(p);
         }
     }
 
 
-    @Override
-    public Dimension getPreferredSize() {
-        return new Dimension(WINDOW_WIDTH.getSize(),WINDOW_HEIGHT.getSize());
-    }
+
 
     public LoginPanel(){
         setLayout(null);
@@ -110,17 +103,21 @@ public class LoginPanel extends JPanel  {
         add(settingsOfGame);
 
 
-        body_typeGamePanel();
-        body_settingsOfGame();
-
-
-        add(body_buttonsPanel());
+        body_typeGamePanel(); // adds left components
+        body_settingsOfGame(); // adds right components
+        add(body_buttonsPanel()); // adds buttons start and back
 
     }
+
+
+
+
+    // Left Panel
+    // Componets to left Panel
     private void body_typeGamePanel(){
 
         // WIDTH = 355; HEIGHT = 465
-        typeGamePanel.add(dodajLabel("<font color='white'>Rodzaj Gry</font>", (355/2)-60,50,15));
+        typeGamePanel.add(dodajLabel("<font color='white'>Rejestracja</font>", (355/2)-60,50,15));
 
         isMultiPlayer = new JCheckBox("<html><font color='white'><b> Multiplayer </b></font></html>" ,false);
         isMultiPlayer.setBounds(48,150, 120,50);
@@ -144,8 +141,10 @@ public class LoginPanel extends JPanel  {
         });
         typeGamePanel.add(isMultiPlayer);
 
-        typeGamePanel.add(dodajLabel(" <font color='white'>Gracz 1:</font> ", 20,210,12));
-        typeGamePanel.add(dodajTexFiled(140, 212,180, 26));
+        typeGamePanel.add(dodajLabel(" <font color='white'>Player:</font> ", 20,210,12));
+        playerName = dodajTexFiled(140, 212,180, 26);
+        playerName.setText("Krzysztof");
+        typeGamePanel.add(playerName);
 
         typeGamePanel.add(dodajLabel(" <font color='white'>VS</font> ", (355/2)-60,280,16));
 
@@ -163,17 +162,10 @@ public class LoginPanel extends JPanel  {
 
 
     }
-    private void body_settingsOfGame(){
 
-        // WIDTH = 355; HEIGHT = 465
-        //settingsOfGame.add(dodajLabel(" <html><font color='white'>Ustawienia</font></html> ", (355/2)-60,50,15));
-        settingsOfGame.add(body_samplePanel());
-        settingsOfGame.add(body_levelPanel());
-        settingsOfGame.add(body_ballsPanel());
-        settingsOfGame.add(body_passwordPanel());
 
-    }
     // Right Panel
+    //Levels module sets
     private JPanel body_levelPanel(){
 
         JPanel levelsPanel = new JPanel(){
@@ -248,6 +240,7 @@ public class LoginPanel extends JPanel  {
 
         return levelsPanel;
     }
+    // Module with samples sets
     private JPanel body_samplePanel(){
 
 
@@ -263,7 +256,6 @@ public class LoginPanel extends JPanel  {
         samplePanel.setBounds(50, 140, 255, 50);
         samplePanel.setOpaque(false);
         samplePanel.setBackground( new Color(255, 255, 255, 0) );
-        //samplePanel.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.lightGray),"<html><font color='white'></font></html>"));
         samplePanel.add(dodajLabel(" <html><font color='white'>Ilość prób:</font></html> ", 20,210,15));
 
 
@@ -295,6 +287,7 @@ public class LoginPanel extends JPanel  {
 
         return samplePanel;
     }
+    // All Planets
     private JPanel body_ballsPanel(){
         ballsPanel = new JPanel(){
             protected void paintComponent(Graphics g)
@@ -316,6 +309,7 @@ public class LoginPanel extends JPanel  {
 
         return ballsPanel;
     }
+    // Panel with password Planets
     private JPanel body_passwordPanel(){
         passworPanel = new JPanel(){
             protected void paintComponent(Graphics g)
@@ -331,6 +325,20 @@ public class LoginPanel extends JPanel  {
         passworPanel.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.lightGray),"<html><font color='white'>Hasło</font></html>"));
         return passworPanel;
     }
+    // adds aboves methods to Panel
+    private void body_settingsOfGame(){
+
+        // WIDTH = 355; HEIGHT = 465
+        //settingsOfGame.add(dodajLabel(" <html><font color='white'>Ustawienia</font></html> ", (355/2)-60,50,15));
+        settingsOfGame.add(body_samplePanel());
+        settingsOfGame.add(body_levelPanel());
+        settingsOfGame.add(body_ballsPanel());
+        settingsOfGame.add(body_passwordPanel());
+
+    }
+
+
+    // Buttons Start and Back
     private JPanel body_buttonsPanel(){
 
         JPanel buttonsPanel = new JPanel(){
@@ -370,7 +378,7 @@ public class LoginPanel extends JPanel  {
 
         return buttonsPanel;
     }
-
+    // return counter plantes dependecy level chosen
     public static int setPlanetDepdecyLevel(){
         if(selectedLevelString.equals("easy")){
             return 4;
@@ -381,6 +389,7 @@ public class LoginPanel extends JPanel  {
         }
         return 0;
     }
+    // warning when level is incorect with count plantes
     public  boolean warningWindows(){
         if(setPlanetDepdecyLevel() != password.size()){
             JOptionPane.showMessageDialog(this, "Liczba Planet jest niezgodna z levelem","Błąd",JOptionPane.INFORMATION_MESSAGE);
@@ -389,7 +398,6 @@ public class LoginPanel extends JPanel  {
             return true;
     }
 
-    //Left Panel
 
 
 
@@ -410,11 +418,9 @@ public class LoginPanel extends JPanel  {
     }
 
 
-
     public static void reload(){
         passworPanel.revalidate();
         passworPanel.repaint();
-
         ballsPanel.revalidate();
         ballsPanel.repaint();
 
@@ -424,6 +430,11 @@ public class LoginPanel extends JPanel  {
         super.paintComponent(g);
         g.drawImage(StartPanel.backgound, 0, 0, this); // see javadoc for more info on the parameters
         g.drawImage(StartPanel.headerImage, 60, 0, this); // see javadoc for more info on the parameters
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(WINDOW_WIDTH.getSize(),WINDOW_HEIGHT.getSize());
     }
 
 }

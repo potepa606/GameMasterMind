@@ -2,26 +2,18 @@ package GUI.panels;
 
 import GUI.levelModuleListeners.LevelGame;
 import GUI.styles.MyButton;
-import logic.JPanelWithPlanets;
-import logic.JScrollablePanel;
 import logic.Planet;
-import logic.PlanetListenerGame;
+import GUI.panels.listeners.PlanetListenerGame_GamePanel;
 import net.miginfocom.swing.MigLayout; // If you're just using this one class
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import static GUI.levelModuleListeners.LevelGame.*;
+import static GUI.panels.LoginPanel.counterRounds;
 import static GUI.panels.LoginPanel.setPlanetDepdecyLevel;
 import static GUI.panels.StartPanel.backgound;
 import static GUI.widnowsSize.Size.WINDOW_HEIGHT;
@@ -35,8 +27,10 @@ public class GamePanel extends JPanel {
     public  static JPanelWithPlanets zbiórWszysktichJPanel = new JPanelWithPlanets();
     public static ArrayList<Planet> plentyUsunietezZGlownego = new ArrayList<Planet>();
     public  static  JPanel testPanel , lampInfoPanel;
-    public static JLabel probaLabel, iconLevel;
+    public static JLabel probaLabel, iconLevel, playerName;
     public static ArrayList<Planet> planetyDoZamrozenia = new ArrayList<Planet>();
+    private JButton checjButton;
+    private  LoseGamePanel losepanel = new LoseGamePanel();
 
     public static int  proba = 0 ;
 
@@ -46,47 +40,85 @@ public class GamePanel extends JPanel {
 
     public GamePanel( ) {
         setLayout(null);
+
         add(myGameScrollablePanel);
         add(zbiórWszysktichJPanel);
+
+
+        //add(losepanel,0);
+
+
         myGameScrollablePanel.addPanelPass(testaddPanel(),"");
         myGameScrollablePanel.addPanelPass(addPanelInfo(),"wrap");
 
-
-        JButton checjButton = new MyButton("Sprawdź",34,163,463);
+        checjButton = new MyButton("Sprawdź",34,163,513);
         checjButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(testPanel.getComponentCount() >= 4){
+
+
+                if(testPanel.getComponentCount() >= setPlanetDepdecyLevel()){
                     for (Planet p:plentyUsunietezZGlownego)
                         zbiórWszysktichJPanel.add(p);
                     plentyUsunietezZGlownego.clear();
+
+                    for (Planet planet : planetyDoZamrozenia) {
+                        planet.setStanAktualny(false);
+                    }
+
                     sampleLampCheck();
                     myGameScrollablePanel.addPanelPass(testaddPanel(),"");
                     myGameScrollablePanel.addPanelPass(addPanelInfo(),"wrap");
                     isCorectPasswrod();
-                    probaLabel.setText((++proba) ==0 ? "" : "<html><b>Próba "+(proba)+"</html>");
+                    probaLabel.setText(proba<counterRounds && (++proba) == 0 ? "" : "<html><b>Próba "+proba+"/"+counterRounds+"</b></html>");
 
+                    reload();
+                    planetyDoZamrozenia.clear();
                 }
-                reload();
+
             }
         });
         add(checjButton);
 
         probaLabel = new JLabel();
-        probaLabel.setFont(new Font("Verdana", Font.PLAIN, 23));
-        probaLabel.setBounds(80,365, 120,50);
+        probaLabel.setFont(new Font("Verdana", Font.PLAIN, 20));
+        probaLabel.setBounds(70,415, 120,50);
         probaLabel.setForeground(Color.white);
         add(probaLabel);
 
         iconLevel = new JLabel();
-        iconLevel.setBounds(215,350, 80,80);
+        iconLevel.setBounds(215,400, 80,80);
         iconLevel.setOpaque(false);
-
         add(iconLevel);
 
+
+        playerName = new JLabel("<html><b>"+LoginPanel.playerName.getText()+"</b></html>", SwingConstants.CENTER){
+            protected void paintComponent(Graphics g)
+            {   //Set full transparency background
+                super.paintComponent(g);
+                Dimension arcs = new Dimension(20,20);
+                int width = getWidth();
+                int height = getHeight();
+                Graphics2D graphics = (Graphics2D) g;
+                graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                //Draws the rounded opaque panel with borders.
+                graphics.setColor(getBackground());
+                graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);//paint background
+                graphics.setColor(getForeground());
+                graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);//paint border
+            }
+        };
+        playerName.setFont(new Font("Verdana", Font.PLAIN, 20));
+        playerName.setBounds(34,35, 251,30);
+        playerName.setOpaque(false);
+        playerName.setBackground( new Color(116, 116, 116, 163) );
+        playerName.setForeground(Color.white);
+        add(playerName);
 
 
     }
 
+
+    //Added Panels (Plantes, lamps)
     public JPanel testaddPanel(){
         testPanel  = new JPanel(){
           protected void paintComponent(Graphics g)
@@ -111,6 +143,7 @@ public class GamePanel extends JPanel {
         testPanel.setOpaque(false);
         testPanel.setBackground( new Color(13, 13, 13, 232) );
         testPanel.setBorder(BorderFactory.createEmptyBorder());
+
         return testPanel;
     }
     public JPanel addPanelInfo(){
@@ -138,22 +171,20 @@ public class GamePanel extends JPanel {
         lampInfoPanel.setBorder(BorderFactory.createEmptyBorder());
         return lampInfoPanel;
     }
+    //Check and sets Lampinfo
     public static boolean isCorectPasswrod(){
         int lenghOfPass = LoginPanel.password.size();
         if(lenghOfPass == planetyDoZamrozenia.size()){
             for(int i = 0; i<lenghOfPass; i++){
                 if(!planetyDoZamrozenia.get(i).equals(LoginPanel.password.get(i))){
-                    System.out.println("Roznia sie");
                     planetyDoZamrozenia.clear();
                     return false;
                 }
             }
-            System.out.println("Sa takie same !");
             planetyDoZamrozenia.clear();
             return true;
         }
         else {
-            System.out.println("Hasla maja rozna dlugosc");
             planetyDoZamrozenia.clear();
             return false;
         }
@@ -188,8 +219,6 @@ public class GamePanel extends JPanel {
         ArrayList<Planet> samplePass = planetyDoZamrozenia;
         int correctPlanet = 0 , contain = 0;
 
-        System.out.println("rozmiar password" + pass.size());
-        System.out.println("rozmiar samplePass" + samplePass.size());
 
 
 
@@ -204,13 +233,12 @@ public class GamePanel extends JPanel {
                 }
             }
         }
-        System.out.println("Poprawnych: " + correctPlanet);
-        System.out.println("Znajduje sie: " + contain);
 
 
         setImageLampGroup(correctPlanet,contain);
 
     }
+    //Showing Level in GamePanel
     public static boolean showLevel(){
         if(selectedLevelString.equals("easy")) {
             iconLevel.setIcon(new javax.swing.ImageIcon(LevelGame.resize(easyOnIMG, 70, 70)));
@@ -226,9 +254,7 @@ public class GamePanel extends JPanel {
         }
         return false;
     }
-
-
-
+    // Referesh
     public static void reload(){
         myGameScrollablePanel.revalidate();
         myGameScrollablePanel.repaint();
@@ -237,10 +263,11 @@ public class GamePanel extends JPanel {
         probaLabel.revalidate();
         probaLabel.repaint();
     }
+    //Load plantes to GamePanel
     public static void loadStartPlanets(){
             for (final Planet planet: LoginPanel.allPlanetsArrList) {
                 Planet newPlanet = new Planet(planet.getNamePlanet(),planet.getImagePlanet(),50);
-                newPlanet.addMouseListener(new PlanetListenerGame(newPlanet));
+                newPlanet.addMouseListener(new PlanetListenerGame_GamePanel(newPlanet));
                 zbiórWszysktichJPanel.add(newPlanet);
             }
     }

@@ -20,7 +20,7 @@ public class MainWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setResizable(false);
-        Music.FirsSound();
+        //Music.FirsSound();
     }
 
 

@@ -12,7 +12,7 @@ public class EasyChangeListener extends MouseAdapter {
 
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
 
         if(!levelList[0]){
             stateEasy = LevelGame.resize(easyOnIMG,70,70);
@@ -31,6 +31,6 @@ public class EasyChangeListener extends MouseAdapter {
 
         }
         pokazstany();
-        System.out.println( selectedLevelString );
+        //System.out.println( selectedLevelString );
     }
 }

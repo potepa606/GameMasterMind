@@ -27,7 +27,7 @@ public class StyledButton extends BasicButtonUI {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setColor(c.getBackground().darker());
-        g.fillRoundRect(0, yOffset, size.width, size.height - yOffset, 10, 10);
+        g.fillRoundRect(0, yOffset, size.width, size.height - yOffset , 10, 10);
         g.setColor(c.getBackground());
         g.fillRoundRect(0, yOffset, size.width, size.height + yOffset - 5, 10, 10);
     }

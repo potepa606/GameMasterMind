@@ -9,7 +9,7 @@ import static GUI.levelModuleListeners.LevelGame.*;
 public class HardChangeListener extends MouseAdapter {
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         if(!levelList[2]){
             stateHard = LevelGame.resize(hardOnIMG,70,70);
             hardStatePanel.getGraphics().drawImage(stateHard, 0, 0, null);
@@ -25,6 +25,6 @@ public class HardChangeListener extends MouseAdapter {
             levelList[1] = false;
         }
         pokazstany();
-        System.out.println( selectedLevelString );
+        //System.out.println( selectedLevelString );
     }
 }

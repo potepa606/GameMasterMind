@@ -11,6 +11,9 @@ public class LoadComponents {
     public static BufferedImage earth100,jupiter100,mars100,europa100, kalisto100,io100,saturn100, betelgeza100,syriusz100,uran100;
 
     public static BufferedImage red_Lamp, green_Lamp, empty_Lamp;
+    public static BufferedImage up,down;
+
+
 
 
     static {
@@ -41,17 +44,13 @@ public class LoadComponents {
 
 
 
-//            red_image = ImageIO.read(new File("src\\main\\java\\GUI\\images\\ballsImage\\red.png"));
-//            green_Image = ImageIO.read(new File("src\\main\\java\\GUI\\images\\ballsImage\\green.png"));
-//            blue_Image = ImageIO.read(new File("src\\main\\java\\GUI\\images\\ballsImage\\blue.png"));
-//            orange_Image = ImageIO.read(new File("src\\main\\java\\GUI\\images\\ballsImage\\orange.png"));
-//            pink_Image = ImageIO.read(new File("src\\main\\java\\GUI\\images\\ballsImage\\pink.png"));
-//            emptyBALL_Image = ImageIO.read(new File("src\\main\\java\\GUI\\images\\ballsImage\\emptyBALL.png"));
-
-
             red_Lamp = ImageIO.read(new File("src\\main\\java\\GUI\\images\\lamps\\redLamp.png"));
             green_Lamp = ImageIO.read(new File("src\\main\\java\\GUI\\images\\lamps\\greenLamp.png"));
             empty_Lamp = ImageIO.read(new File("src\\main\\java\\GUI\\images\\lamps\\emptyLamp.png"));
+
+
+            up = ImageIO.read(new File("src\\main\\java\\GUI\\images\\up.png"));
+            down = ImageIO.read(new File("src\\main\\java\\GUI\\images\\down.png"));
 
 
 

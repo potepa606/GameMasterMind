@@ -9,15 +9,13 @@ import java.io.File;
 public class Music {
 
     public static void FirsSound() {
-        System.out.println("Metoda muzyczna");
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src\\main\\java\\music\\gameSong.wav").getAbsoluteFile());
+            AudioInputStream audio = AudioSystem.getAudioInputStream(new File("src\\main\\java\\music\\gameSong.wav").getAbsoluteFile());
             Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            System.out.println("Start");
+            clip.open(audio);
             clip.start();
         } catch(Exception ex){
-            System.out.println("Error with playing sound.");
+            System.out.println("Error playing sound.");
         }
     }
 

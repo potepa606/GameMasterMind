@@ -8,7 +8,7 @@ import static GUI.levelModuleListeners.LevelGame.*;
 
 public class MediumChangeListener extends MouseAdapter {
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         if(!levelList[1]){
             stateMedium = LevelGame.resize(mediumOnIMG,70,70);
             mediumStatePanel.getGraphics().drawImage(stateMedium, 0, 0, null);
@@ -23,7 +23,7 @@ public class MediumChangeListener extends MouseAdapter {
             levelList[2] = false;
         }
         pokazstany();
-        System.out.println( selectedLevelString );
+        //System.out.println( selectedLevelString );
 
     }
 }
