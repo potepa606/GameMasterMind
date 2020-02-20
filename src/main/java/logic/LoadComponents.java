@@ -12,12 +12,23 @@ public class LoadComponents {
 
     public static BufferedImage red_Lamp, green_Lamp, empty_Lamp;
     public static BufferedImage up,down;
+    public static BufferedImage randomIcon, questMark;
 
+
+    public static BufferedImage headerImage, backgound;
+
+    public static BufferedImage deleteIcon,mIcon;
 
 
 
     static {
         try {
+
+
+            headerImage = ImageIO.read(new File("src\\main\\java\\GUI\\images\\background\\header.png"));
+            backgound = ImageIO.read(new File("src\\main\\java\\GUI\\images\\background\\space_background.jpg"));
+
+
             // 50 x 50 px
             earth50 = ImageIO.read(new File("src\\main\\java\\GUI\\images\\planetsImage\\50\\earth50x50.png"));
             jupiter50 = ImageIO.read(new File("src\\main\\java\\GUI\\images\\planetsImage\\50\\Jupiter50x50.png"));
@@ -51,6 +62,20 @@ public class LoadComponents {
 
             up = ImageIO.read(new File("src\\main\\java\\GUI\\images\\up.png"));
             down = ImageIO.read(new File("src\\main\\java\\GUI\\images\\down.png"));
+
+
+            randomIcon = ImageIO.read(new File("src\\main\\java\\GUI\\images\\randomIcon.png"));
+            questMark = ImageIO.read(new File("src\\main\\java\\GUI\\images\\questMark.png"));
+
+
+
+
+
+
+            deleteIcon = ImageIO.read(new File("src\\main\\java\\GUI\\images\\deleteIcon.png"));
+            mIcon = ImageIO.read(new File("src\\main\\java\\GUI\\images\\mIcon.png"));
+
+
 
 
 

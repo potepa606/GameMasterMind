@@ -1,19 +1,14 @@
 package GUI.panels.listeners;
 
-import GUI.levelModuleListeners.LevelGame;
 import GUI.panels.GamePanel;
 import logic.Planet;
 
-import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.PrintWriter;
 
 import static GUI.levelModuleListeners.LevelGame.*;
 import static GUI.panels.GamePanel.*;
 import static GUI.panels.LoginPanel.*;
-import static logic.LoadComponents.earth100;
-import static logic.LoadComponents.jupiter100;
 
 public class PlanetListenerGame_GamePanel extends MouseAdapter {
 
@@ -43,7 +38,7 @@ public class PlanetListenerGame_GamePanel extends MouseAdapter {
         final Planet NowaPlanetaDoHasla = new Planet(planet.getNamePlanet(),planet.getImagePlanet(),100);
         NowaPlanetaDoHasla.setStanAktualny(true);
         // Usuwanie z glownej
-        zbiórWszysktichJPanel.remove(planet); // JPanel
+        zbiorWszysktichJPanel.remove(planet); // JPanel
         plentyUsunietezZGlownego.add(planet); // przechowalnia
         //dodawanie do hasla
         planetyDoZamrozenia.add(NowaPlanetaDoHasla); // Lista
@@ -56,7 +51,7 @@ public class PlanetListenerGame_GamePanel extends MouseAdapter {
                     planetyDoZamrozenia.remove(NowaPlanetaDoHasla);
                     testPanel.remove(NowaPlanetaDoHasla);
 
-                    zbiórWszysktichJPanel.add(planet);
+                    zbiorWszysktichJPanel.add(planet);
                     plentyUsunietezZGlownego.remove(planet);
                     GamePanel.reload();
                 }
@@ -68,7 +63,7 @@ public class PlanetListenerGame_GamePanel extends MouseAdapter {
         final Planet NowaPlanetaDoHasla = new Planet(planet.getNamePlanet(),planet.getImagePlanet(),75);
         NowaPlanetaDoHasla.setStanAktualny(true);
         // Usuwanie z glownej
-        zbiórWszysktichJPanel.remove(planet); // JPanel
+        zbiorWszysktichJPanel.remove(planet); // JPanel
         plentyUsunietezZGlownego.add(planet); // przechowalnia
         //dodawanie do hasla
         planetyDoZamrozenia.add(NowaPlanetaDoHasla); // Lista
@@ -80,7 +75,7 @@ public class PlanetListenerGame_GamePanel extends MouseAdapter {
                     planetyDoZamrozenia.remove(NowaPlanetaDoHasla);
                     testPanel.remove(NowaPlanetaDoHasla);
 
-                    zbiórWszysktichJPanel.add(planet);
+                    zbiorWszysktichJPanel.add(planet);
                     plentyUsunietezZGlownego.remove(planet);
                     GamePanel.reload();
                 }

@@ -1,44 +1,58 @@
 package GUI.panels;
 
-import GUI.levelModuleListeners.LevelGame;
 import GUI.styles.MyButton;
-import net.miginfocom.swing.MigLayout;
+import logic.Player;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static GUI.levelModuleListeners.LevelGame.selectedLevelString;
 import static GUI.panels.GamePanel.*;
+import static GUI.panels.GamePanel.probaLabel;
 import static GUI.panels.LoginPanel.*;
-import static managePanels.Managment.*;
+import static database.DataBaseAction.sendPlayers;
+import static managePanels.Managment.panels;
+import static managePanels.Managment.setPanel;
 
-public class LoseGamePanel extends JPanel {
+public class WinGamePanel extends JPanel {
+
+    private Player player ;
 
 
-    public LoseGamePanel() {
+
+    public WinGamePanel() {
         setLayout(null);
-        setBackground( new Color(13, 13, 13, 234) );
-        setBounds(25, 70, 800, 350);
+        setBackground( Color.black);
+        setBounds(25, 70, 800, 400);
         setBorder(BorderFactory.createEmptyBorder());
         setOpaque(false);
 
-
-
-        Image image = Toolkit.getDefaultToolkit().createImage("e:\\C_School\\GameMasterMind\\src\\main\\java\\GUI\\images\\giffs\\end.gif");
+        Image image = Toolkit.getDefaultToolkit().createImage("e:\\C_School\\GameMasterMind\\src\\main\\java\\GUI\\images\\giffs\\win.gif");
         Icon icon = new ImageIcon(image);
         JLabel label = new JLabel(icon);
         label.setBounds(150,0,500,300);
         add(label);
 
 
-        MyButton repeat = new MyButton("Try Again",25,1,1);
-        repeat.setBounds(295,300,200,40);
+        this.player = new Player(LoginPanel.playerName.getText(),proba,selectedLevelString);
+        String wynik = "Gratulacje!!! Twój wynik ";
+        String score = " " + this.player.getWynik();
+        JLabel wynikLabel = new JLabel("<html><b>" + wynik + score + "</b></html>");
+        wynikLabel.setBounds(250,300,400,30);
+        wynikLabel.setForeground(Color.YELLOW);
+        wynikLabel.setFont(new Font("Verdana", Font.PLAIN, 20));
+
+        add(wynikLabel);
+
+        MyButton repeat = new MyButton("Save and exit",25,1,1);
+        repeat.setBounds(260,340,300,40);
         add(repeat);
         repeat.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                sendPlayrScoreToDatabase();
                 // czyszczebue list
                 planetyDoZamrozenia.clear();
                 myGameScrollablePanel.getMainPanelGame().removeAll();
@@ -48,13 +62,8 @@ public class LoseGamePanel extends JPanel {
                 isSamples = false;
                 proba = 0 ;
                 probaLabel.setText("");
-
-
-               // GamePanel.reload();
-
                 resetPlanets();
-                setPanel(1);
-
+                setPanel(0);
                 panels.get(2).remove(0);
                 for (Component component : panels.get(2).getComponents()) {
                     component.setEnabled(true);
@@ -65,6 +74,11 @@ public class LoseGamePanel extends JPanel {
 
 
     }
+
+    private void sendPlayrScoreToDatabase(){
+        sendPlayers(this.player);
+    }
+
 
     public void reload(){
         this.revalidate();

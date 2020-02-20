@@ -6,6 +6,7 @@ import GUI.levelModuleListeners.LevelGame;
 import GUI.levelModuleListeners.MediumChangeListener;
 import GUI.panels.listeners.PlanetsListeners_LoginPanel;
 import GUI.styles.MyButton;
+import logic.LoadComponents;
 import logic.Planet;
 import logic.Planets;
 
@@ -17,8 +18,10 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 import static GUI.levelModuleListeners.LevelGame.*;
+import static GUI.panels.GamePanel.*;
 import static GUI.widnowsSize.Size.WINDOW_HEIGHT;
 import static GUI.widnowsSize.Size.WINDOW_WIDTH;
+import static logic.LoadComponents.*;
 import static managePanels.Managment.setPanel;
 
 
@@ -26,17 +29,17 @@ public class LoginPanel extends JPanel  {
 
     private JPanel typeGamePanel;
     private JPanel settingsOfGame;
-    public static JPanel passworPanel, ballsPanel;
 
-    private JLabel vsComputerLabel,secondPlayerLabel;
-    public static JTextField playerName, secondPlayerName;
-    private JCheckBox isMultiPlayer;
+    public static JTextField playerName;
 
     private JLabel rounds;
     public static short counterRounds=2;
+    public static boolean isSamples = false;
+
+    public static JLabel easyStatePanel ,mediumStatePanel, hardStatePanel;
+    public static JPanel passworPanel, ballsPanel;
 
 
-    public static JPanel easyStatePanel ,mediumStatePanel, hardStatePanel;
     public static ArrayList<Planet> allPlanetsArrList = new ArrayList<Planet>();
     public static ArrayList<Planet> password = new ArrayList<Planet>();
 
@@ -52,6 +55,7 @@ public class LoginPanel extends JPanel  {
             p.addMouseListener(new PlanetsListeners_LoginPanel(p));
             allPlanetsArrList.add(p);
         }
+        System.out.println(" ilosc planet "  +allPlanetsArrList.size());
     }
 
 
@@ -119,44 +123,49 @@ public class LoginPanel extends JPanel  {
         // WIDTH = 355; HEIGHT = 465
         typeGamePanel.add(dodajLabel("<font color='white'>Rejestracja</font>", (355/2)-60,50,15));
 
-        isMultiPlayer = new JCheckBox("<html><font color='white'><b> Multiplayer </b></font></html>" ,false);
-        isMultiPlayer.setBounds(48,150, 120,50);
-        isMultiPlayer.setFont(new Font("Verdana", Font.PLAIN, 15));
-        isMultiPlayer.setOpaque(false);
-        isMultiPlayer.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if(isMultiPlayer.isSelected()){
-                    secondPlayerLabel.setVisible(true);
-                    secondPlayerName.setVisible(true);
-                    vsComputerLabel.setVisible(false);
 
-                }else {
-                    secondPlayerLabel.setVisible(false);
-                    secondPlayerName.setVisible(false);
-                    secondPlayerName.setText("");
-                    vsComputerLabel.setVisible(true);
+        typeGamePanel.add(dodajLabel(" <font color='white'>Player:</font> ", 20,100,12));
+        playerName = dodajTexFiled(140, 102,180, 26);
+        playerName.setText("Krzysztof");
+        playerName.selectAll();
+        playerName.setFont(new Font("Courier", Font.BOLD,12));
+        playerName.setHorizontalAlignment(JTextField.CENTER);
+        playerName.setBackground(new Color(45, 45, 45, 208));
+        playerName.setForeground(Color.white);
+        playerName.setCaretColor(Color.WHITE);
+        playerName.setOpaque(false);
+        playerName.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.WHITE)));
+        typeGamePanel.add(playerName);
+
+
+        JLabel randomIcon = new JLabel();
+        randomIcon.setBounds(130,150,100,130);
+        randomIcon.setText("<html><b> <font color='white'>Losuj układ</font></b></html>");
+        //randomIcon.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.WHITE)));
+        randomIcon.setFont(new Font("Courier", Font.BOLD,12));
+        randomIcon.setIcon(new ImageIcon(LevelGame.resize(LoadComponents.randomIcon, 100, 100)));
+        randomIcon.setHorizontalTextPosition(JLabel.CENTER);
+        randomIcon.setVerticalTextPosition(JLabel.BOTTOM);
+        randomIcon.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                passworPanel.removeAll();
+                passworPanel.revalidate();
+                passworPanel.repaint();
+                password.clear();
+               if(password.size() < setPlanetDepdecyLevel())
+                   randomPlanets();
+
+                reload();
+                for (Planet p : password) {
+                    System.out.println(p.getNamePlanet());
                 }
+                //System.out.println("Ilosc planet w Jpanel " + passworPanel.getComponentCount());
+
 
             }
         });
-        typeGamePanel.add(isMultiPlayer);
-
-        typeGamePanel.add(dodajLabel(" <font color='white'>Player:</font> ", 20,210,12));
-        playerName = dodajTexFiled(140, 212,180, 26);
-        playerName.setText("Krzysztof");
-        typeGamePanel.add(playerName);
-
-        typeGamePanel.add(dodajLabel(" <font color='white'>VS</font> ", (355/2)-60,280,16));
-
-        vsComputerLabel = dodajLabel(" <font color='white'>Komputer</font> ", (355/2)-60,350,16);
-        typeGamePanel.add(vsComputerLabel);
-
-        secondPlayerLabel = dodajLabel(" <font color='white'>Gracz 2:</font> ", 20,350,12);
-        secondPlayerLabel.setVisible(false);
-        typeGamePanel.add(secondPlayerLabel);
-        secondPlayerName = dodajTexFiled(140, 352,180, 26);
-        secondPlayerName.setVisible(false);
-        typeGamePanel.add(secondPlayerName);
+        typeGamePanel.add(randomIcon);
 
 
 
@@ -180,61 +189,27 @@ public class LoginPanel extends JPanel  {
         levelsPanel.setBounds(52, 30, 250, 100);
         levelsPanel.setOpaque(false);
         levelsPanel.setBackground( new Color(255, 255, 255, 0) );
-        //levelsPanel.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.BLACK),"<html><font color='white'>Poziom</font></html>"));
 
         ////////////////////////////////////////////////////////////// Pod Panele Levels
-        easyStatePanel = new JPanel(){
-            protected void paintComponent(Graphics g)
-            {
-                g.setColor( getBackground() );
-                g.fillRect(0, 0, getWidth(), getHeight());
-                super.paintComponent(g);
-                stateEasy = LevelGame.resize(LevelGame.easyIMG,70,70);
-                g.drawImage(stateEasy, 0, 0, this);
-            }
-        };
+        easyStatePanel = new JLabel();
         easyStatePanel.setBounds(10, 20, 70, 70);
-        easyStatePanel.setOpaque(false);
-        easyStatePanel.setBackground( new Color(255, 255, 255, 0) );
-        easyStatePanel.addMouseListener(new EasyChangeListener());
+        easyStatePanel.setIcon(new ImageIcon(LevelGame.resize(easyIMG,70,70)));
         easyStatePanel.setToolTipText("<html>Układ planet składajacy się z 4 ciał niebieskich.<br>Nie mogą się powtarzać</html>");
+        easyStatePanel.addMouseListener(new EasyChangeListener());
         levelsPanel.add(easyStatePanel);
 
-        mediumStatePanel = new JPanel(){
-            protected void paintComponent(Graphics g)
-            {
-                g.setColor( getBackground() );
-                g.fillRect(0, 0, getWidth(), getHeight());
-                super.paintComponent(g);
-                stateMedium = LevelGame.resize(mediumIMG,70,70);
-                g.drawImage(stateMedium, 0, 0, this);
 
-            }
-        };
+        mediumStatePanel = new JLabel();
         mediumStatePanel.setBounds(90, 20, 70, 70);
-        mediumStatePanel.setOpaque(false);
-        mediumStatePanel.setBackground( new Color(255, 255, 255, 0) );
-        mediumStatePanel.addMouseListener(new MediumChangeListener());
+        mediumStatePanel.setIcon(new ImageIcon(LevelGame.resize(mediumIMG,70,70)));
         mediumStatePanel.setToolTipText("<html>Układ planet składajacy się z 4 ciał niebieskich.<br>Objekt może się raz powtózyć</html>");
-
+        mediumStatePanel.addMouseListener(new MediumChangeListener());
         levelsPanel.add(mediumStatePanel);
 
-        hardStatePanel = new JPanel(){
-            protected void paintComponent(Graphics g)
-            {
-                g.setColor( getBackground() );
-                g.fillRect(0, 0, getWidth(), getHeight());
-                super.paintComponent(g);
-                stateHard = LevelGame.resize(hardIMG,70,70);
-                g.drawImage(stateHard, 0, 0, this);
-            }
-        };
+        hardStatePanel = new JLabel();
         hardStatePanel.setBounds(170, 20, 70, 70);
-        hardStatePanel.setOpaque(false);
-        hardStatePanel.setBackground( new Color(255, 255, 255, 0) );
+        hardStatePanel.setIcon(new ImageIcon(LevelGame.resize(hardIMG,70,70)));
         hardStatePanel.addMouseListener(new HardChangeListener());
-
-
         levelsPanel.add(hardStatePanel);
 
 
@@ -266,6 +241,7 @@ public class LoginPanel extends JPanel  {
                 if(counterRounds > 1){
                     counterRounds--;
                     rounds.setText("<html><font color='white'><b>"+counterRounds+"</b></font></html>");
+                    isSamples = true;
                 }
             }
         });
@@ -273,13 +249,13 @@ public class LoginPanel extends JPanel  {
 
         rounds = dodajLabel("<html><font color='white'><b>"+counterRounds+"</b></font></html>" ,148, 209,17 );
         samplePanel.add(rounds);
-
-       MyButton plusRound = new MyButton("+",10,235,212);
+        MyButton plusRound = new MyButton("+",10,235,212);
         plusRound.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(counterRounds < 10) {
                     counterRounds++;
                     rounds.setText("<html><font color='white'><b>"+counterRounds+"</b></font></html>");
+                    isSamples = true;
                 }
             }
         });
@@ -300,7 +276,7 @@ public class LoginPanel extends JPanel  {
         ballsPanel.setOpaque(false);
         ballsPanel.setBackground( new Color(255, 255, 255, 0) );
         ballsPanel.setBounds(50, 190, 255, 110);
-        ballsPanel.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.lightGray),"<html><font color='white'>Wszystkie kule</font></html>"));
+        ballsPanel.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.lightGray),"<html><font color='white'>Wszystkie planety</font></html>"));
 
         for (Planet planet: allPlanetsArrList) {
             ballsPanel.add(planet);
@@ -319,7 +295,7 @@ public class LoginPanel extends JPanel  {
                 super.paintComponent(g);
             }
         };
-        passworPanel.setBounds(26, 300, 300, 80);
+        passworPanel.setBounds(11, 300, 330, 80);
         passworPanel.setOpaque(false);
         passworPanel.setBackground( new Color(255, 255, 255, 0) );
         passworPanel.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.lightGray),"<html><font color='white'>Hasło</font></html>"));
@@ -368,9 +344,12 @@ public class LoginPanel extends JPanel  {
         startGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-               if(password.size() >=4 && GamePanel.showLevel() && warningWindows()) {
+               if( warningWindows() && warningSetSamples() &&  GamePanel.showLevel() ) {
                    GamePanel.loadStartPlanets();
+                   myGameScrollablePanel.addPanelPass(testaddPanel(),"");
+                   myGameScrollablePanel.addPanelPass(addPanelInfo(),"wrap");
                    setPanel(2);
+                   GamePanel.reload();
                }
             }
         });
@@ -397,7 +376,54 @@ public class LoginPanel extends JPanel  {
         }else
             return true;
     }
+    // warning when didnt set samples
+    public  boolean warningSetSamples(){
+        if(!isSamples){
+            JOptionPane.showMessageDialog(this, "Ustaw liczbę prób","Błąd",JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }else
+            return true;
+    }
 
+    //Lottery Planet
+    public static void randomPlanets(){
+
+        Planet  randomPlanet;
+        System.out.println("level ilosc planet "   +setPlanetDepdecyLevel());
+        int rozmiarHasla = setPlanetDepdecyLevel();
+        Planet p;
+        int i =0;
+        while (true) {
+            double rand = Math.random() * allPlanetsArrList.size();
+            randomPlanet = Planets.values()[(int)rand].getPlanet();
+             p = new Planet(randomPlanet.getNamePlanet(),randomPlanet.getImagePlanet());
+
+            if(!password.contains(p)){
+                password.add(p);
+                passworPanel.add(new Planet("",questMark,randomPlanet.getSizes()+10));
+            }
+
+            if(rozmiarHasla == password.size())
+                break;
+        }
+    }
+
+
+
+    //Reset password Planets
+    public static void resetPlanets(){
+        ballsPanel.removeAll();
+        if(selectedLevelString.equals("easy")){
+            for (int i = 0; i < allPlanetsArrList.size()-3; i++)
+                ballsPanel.add(allPlanetsArrList.get(i));
+        }else {
+            for (Planet planet: allPlanetsArrList)
+                ballsPanel.add(planet);
+        }
+        passworPanel.removeAll();
+        password.clear();
+        reload();
+    }
 
 
 
@@ -428,8 +454,8 @@ public class LoginPanel extends JPanel  {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(StartPanel.backgound, 0, 0, this); // see javadoc for more info on the parameters
-        g.drawImage(StartPanel.headerImage, 60, 0, this); // see javadoc for more info on the parameters
+        g.drawImage(backgound, 0, 0, this); // see javadoc for more info on the parameters
+        g.drawImage(headerImage, 60, 0, this); // see javadoc for more info on the parameters
     }
 
     @Override

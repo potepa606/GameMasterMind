@@ -1,5 +1,6 @@
 package GUI.levelModuleListeners;
 
+import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -10,20 +11,21 @@ public class MediumChangeListener extends MouseAdapter {
     @Override
     public void mousePressed(MouseEvent e) {
         if(!levelList[1]){
-            stateMedium = LevelGame.resize(mediumOnIMG,70,70);
-            mediumStatePanel.getGraphics().drawImage(stateMedium, 0, 0, null);
+
+
+            mediumStatePanel.setIcon(new ImageIcon(LevelGame.resize(mediumOnIMG,70,70)));
             levelList[1] = true;
 
             // reszta
-            stateEasy = LevelGame.resize(easyIMG,70,70);
-            easyStatePanel.getGraphics().drawImage(stateEasy, 0, 0, null);
+            easyStatePanel.setIcon(new ImageIcon(LevelGame.resize(easyIMG,70,70)));
             levelList[0] = false;
-            stateHard = LevelGame.resize(hardIMG,70,70);
-            hardStatePanel.getGraphics().drawImage(stateHard, 0, 0, null);
+            hardStatePanel.setIcon(new ImageIcon(LevelGame.resize(hardIMG,70,70)));
             levelList[2] = false;
-        }
-        pokazstany();
-        //System.out.println( selectedLevelString );
 
+
+            pokazstany();
+            // Za kazda zmiana levela resetowana jest hasło
+            resetPlanets();
+        }
     }
 }
