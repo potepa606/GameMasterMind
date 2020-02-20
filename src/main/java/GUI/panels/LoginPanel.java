@@ -55,7 +55,6 @@ public class LoginPanel extends JPanel  {
             p.addMouseListener(new PlanetsListeners_LoginPanel(p));
             allPlanetsArrList.add(p);
         }
-        System.out.println(" ilosc planet "  +allPlanetsArrList.size());
     }
 
 
@@ -160,7 +159,6 @@ public class LoginPanel extends JPanel  {
                 for (Planet p : password) {
                     System.out.println(p.getNamePlanet());
                 }
-                //System.out.println("Ilosc planet w Jpanel " + passworPanel.getComponentCount());
 
 
             }
@@ -348,6 +346,7 @@ public class LoginPanel extends JPanel  {
                    GamePanel.loadStartPlanets();
                    myGameScrollablePanel.addPanelPass(testaddPanel(),"");
                    myGameScrollablePanel.addPanelPass(addPanelInfo(),"wrap");
+                   GamePanel.playerName.setText("<html><b>"+LoginPanel.playerName.getText()+"</b></html>");
                    setPanel(2);
                    GamePanel.reload();
                }
@@ -379,7 +378,7 @@ public class LoginPanel extends JPanel  {
     // warning when didnt set samples
     public  boolean warningSetSamples(){
         if(!isSamples){
-            JOptionPane.showMessageDialog(this, "Ustaw liczbę prób","Błąd",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ustaw liczbę prób","Poczekaj",JOptionPane.INFORMATION_MESSAGE);
             return false;
         }else
             return true;
@@ -390,11 +389,19 @@ public class LoginPanel extends JPanel  {
 
         Planet  randomPlanet;
         System.out.println("level ilosc planet "   +setPlanetDepdecyLevel());
+        System.out.println("od 0 do "+ allPlanetsArrList.size());
         int rozmiarHasla = setPlanetDepdecyLevel();
         Planet p;
         int i =0;
         while (true) {
-            double rand = Math.random() * allPlanetsArrList.size();
+            double rand;
+            if(selectedLevelString.equals(""))
+                break;
+            else if(selectedLevelString.equals("easy"))
+                rand = Math.random() * (allPlanetsArrList.size()-3);
+            else
+                rand = Math.random() * allPlanetsArrList.size();
+
             randomPlanet = Planets.values()[(int)rand].getPlanet();
              p = new Planet(randomPlanet.getNamePlanet(),randomPlanet.getImagePlanet());
 

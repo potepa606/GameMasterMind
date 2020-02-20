@@ -63,12 +63,13 @@ public class Player {
     }
 
     public int wynik(){
-        if (levelGame.equals("easy"))
-            return (2 / countSamples)*100;
+        if (levelGame.equals("easy")){
+            return (int)((2.0 /  countSamples)*100);
+        }
         else if (levelGame.equals("medium"))
-            return (4 / countSamples)*100;
+            return (int)((4.0 /  countSamples)*100);
         else if (levelGame.equals("hard"))
-            return (7 / countSamples)*100;
+            return (int)((7.0 /  countSamples)*100);
         else return 0;
     }
 

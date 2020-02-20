@@ -25,29 +25,30 @@ public class WinGamePanel extends JPanel {
     public WinGamePanel() {
         setLayout(null);
         setBackground( Color.black);
-        setBounds(25, 70, 800, 400);
+        setBounds(190, 70, 500, 400);
         setBorder(BorderFactory.createEmptyBorder());
         setOpaque(false);
 
         Image image = Toolkit.getDefaultToolkit().createImage("e:\\C_School\\GameMasterMind\\src\\main\\java\\GUI\\images\\giffs\\win.gif");
         Icon icon = new ImageIcon(image);
         JLabel label = new JLabel(icon);
-        label.setBounds(150,0,500,300);
+        label.setBounds(0,0,500,300);
         add(label);
 
 
         this.player = new Player(LoginPanel.playerName.getText(),proba,selectedLevelString);
-        String wynik = "Gratulacje!!! Twój wynik ";
+        String wynik = "Gratulacje!!! Twój wynik to ";
         String score = " " + this.player.getWynik();
+
         JLabel wynikLabel = new JLabel("<html><b>" + wynik + score + "</b></html>");
-        wynikLabel.setBounds(250,300,400,30);
+        wynikLabel.setBounds(85,300,400,30);
         wynikLabel.setForeground(Color.YELLOW);
         wynikLabel.setFont(new Font("Verdana", Font.PLAIN, 20));
 
         add(wynikLabel);
 
         MyButton repeat = new MyButton("Save and exit",25,1,1);
-        repeat.setBounds(260,340,300,40);
+        repeat.setBounds(100,340,300,40);
         add(repeat);
         repeat.addActionListener(new ActionListener() {
             @Override

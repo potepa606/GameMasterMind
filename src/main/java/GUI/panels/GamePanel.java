@@ -40,10 +40,8 @@ public class GamePanel extends JPanel {
 
     public GamePanel( ) {
         setLayout(null);
-
         add(myGameScrollablePanel);
         add(zbiorWszysktichJPanel);
-
 
 
 
@@ -61,18 +59,19 @@ public class GamePanel extends JPanel {
                         planet.setStanAktualny(false);
                     }
                     sampleLampCheck();
+
+
+
                     myGameScrollablePanel.addPanelPass(testaddPanel(),"");
                     myGameScrollablePanel.addPanelPass(addPanelInfo(),"wrap");
-
                     probaLabel.setText(proba<counterRounds && (++proba) == 0 ? "" : "<html><b>Próba "+proba+"/"+counterRounds+"</b></html>");
+                    reload();
                     whenWinGame();
 
-                    reload();
-                    planetyDoZamrozenia.clear();
-                    //whenWinGame(isCorectPasswrod());
 
-
+                    //whenWinGame();
                 }
+
             }
         });
         add(sprawdzButton);
@@ -99,7 +98,7 @@ public class GamePanel extends JPanel {
         add(iconLevel);
 
 
-        playerName = new JLabel("<html><b>"+LoginPanel.playerName.getText()+"</b></html>", SwingConstants.CENTER){
+        playerName = new JLabel("", SwingConstants.CENTER){
             protected void paintComponent(Graphics g)
             {   //Set full transparency background
                 super.paintComponent(g);
@@ -185,15 +184,12 @@ public class GamePanel extends JPanel {
         if(lenghOfPass == planetyDoZamrozenia.size()){
             for(int i = 0; i<lenghOfPass; i++){
                 if(!planetyDoZamrozenia.get(i).equals(LoginPanel.password.get(i))){
-                    planetyDoZamrozenia.clear();
                     return false;
                 }
             }
-            planetyDoZamrozenia.clear();
             return true;
         }
         else {
-            planetyDoZamrozenia.clear();
             return false;
         }
     }
@@ -261,6 +257,8 @@ public class GamePanel extends JPanel {
     }
     // Referesh
     public static void reload(){
+        lampInfoPanel.revalidate();
+        lampInfoPanel.repaint();
         myGameScrollablePanel.revalidate();
         myGameScrollablePanel.repaint();
         zbiorWszysktichJPanel.revalidate();
@@ -312,10 +310,20 @@ public class GamePanel extends JPanel {
 
 
     }
+    private void whenWinGame(){
+        if(isCorectPasswrod()){
+            winpanel = new WinGamePanel();
+            try{
+                Thread.sleep(500);
+            }catch (InterruptedException ex){ }
+            add(winpanel,0);
+            reload();
+            for (Component component : getComponents()) {
+                component.setEnabled(false);
+            }
+            winpanel.reload();
 
-
-    private void whenLoseGame(){
-        if(!isCorectPasswrod() && proba == counterRounds){
+        }else if(!isCorectPasswrod() && proba == counterRounds){
             add(losepanel,0);
             reload();
             for (Component component : getComponents()) {
@@ -323,21 +331,7 @@ public class GamePanel extends JPanel {
             }
             losepanel.reload();
         }
-    }
-
-
-
-    private void whenWinGame(){
-        winpanel = new WinGamePanel();
-        if(isCorectPasswrod()){
-            add(winpanel,0);
-            reload();
-            for (Component component : getComponents()) {
-                component.setEnabled(false);
-            }
-            winpanel.reload();
-        }else
-            whenLoseGame();
+        planetyDoZamrozenia.clear();
     }
 
 
