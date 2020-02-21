@@ -39,6 +39,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.miglayout</groupId>
+            <artifactId>miglayout</artifactId>
+            <version>3.5.5</version>
+        </dependency>
+
 
     </dependencies>
 
