@@ -192,7 +192,7 @@ public class LoginPanel extends JPanel  {
         easyStatePanel = new JLabel();
         easyStatePanel.setBounds(10, 20, 70, 70);
         easyStatePanel.setIcon(new ImageIcon(LevelGame.resize(easyIMG,70,70)));
-        easyStatePanel.setToolTipText("<html>Układ planet składajacy się z 4 ciał niebieskich.<br>Nie mogą się powtarzać</html>");
+        easyStatePanel.setToolTipText("<html>Układ planet składajacy się z 4 ciał niebieskich.<br>Ilość możliwoych kombinacji 840</html>");
         easyStatePanel.addMouseListener(new EasyChangeListener());
         levelsPanel.add(easyStatePanel);
 
@@ -200,7 +200,7 @@ public class LoginPanel extends JPanel  {
         mediumStatePanel = new JLabel();
         mediumStatePanel.setBounds(90, 20, 70, 70);
         mediumStatePanel.setIcon(new ImageIcon(LevelGame.resize(mediumIMG,70,70)));
-        mediumStatePanel.setToolTipText("<html>Układ planet składajacy się z 4 ciał niebieskich.<br>Objekt może się raz powtózyć</html>");
+        mediumStatePanel.setToolTipText("<html>Układ planet składajacy się z 4 ciał niebieskich.<br>Ilość możliwoych kombinacji 5040</html>");
         mediumStatePanel.addMouseListener(new MediumChangeListener());
         levelsPanel.add(mediumStatePanel);
 
@@ -208,6 +208,7 @@ public class LoginPanel extends JPanel  {
         hardStatePanel.setBounds(170, 20, 70, 70);
         hardStatePanel.setIcon(new ImageIcon(LevelGame.resize(hardIMG,70,70)));
         hardStatePanel.addMouseListener(new HardChangeListener());
+        hardStatePanel.setToolTipText("<html>Układ planet składajacy się z 5 ciał niebieskich.<br>Ilość możliwoych kombinacji 30240</html>");
         levelsPanel.add(hardStatePanel);
 
 

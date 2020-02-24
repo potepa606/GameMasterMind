@@ -12,7 +12,7 @@ public class Database {
     public static void polocz(){
         try{
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Mastermind","postgres","123456a");
+            connection = DriverManager.getConnection("jdbc:postgresql://mastermind.cd5sl8ldadft.eu-central-1.rds.amazonaws.com:6378/postgres","postgres","random.3");
             statement = connection.createStatement();
         }catch (ClassNotFoundException | SQLException e ){
             e.printStackTrace();
