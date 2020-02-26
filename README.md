@@ -13,8 +13,8 @@ More info You can find there [there.](https://en.wikipedia.org/wiki/Mastermind_(
 
 The application allow to set up:
 
-1. Player name
-2. Level: one of three (Easy, Medium, Hard).
+:one:  Player name
+:two: Level: one of three (Easy, Medium, Hard).
 
 |    Level      |   Max Planets | Repetative   |   Empty space 
 | ------------- |:-------------:|:------------:|:-------------:
@@ -22,13 +22,29 @@ The application allow to set up:
 | Medium        |     10        |  Yes         | not allowed
 | Hard          |     10        |  Yes         |   allowed
 
-3. Numbers of attempt.
-4. Random or own placeing of planets.
+:three: Numbers of attempt from 1:10.
+:four:  Random or own placeing of planets.
 
-![board view](src/src/main/java/GUI/images/Readme_First_Panel.png)
+Reference-style: 
+![alt text][logo]
+
+[logo]: https://github.com/potepa606/GameMasterMind/blob/master/src/main/java/GUI/images/Readme_First_Panel.png
+
+#### How To play
+
+- After Settings setup press'Start' button.
+
+Reference-style: 
+![alt text][logo]
+
+[logo]: https://github.com/potepa606/GameMasterMind/blob/master/src/main/java/GUI/images/Readme_Game_Panel.png
 
 
-#### 
+
+:smile:
+
+
+
 
 
 
