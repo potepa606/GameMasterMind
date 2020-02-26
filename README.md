@@ -37,7 +37,8 @@ Sample gameplay View
  
 ![alt text](https://github.com/potepa606/GameMasterMind/blob/master/src/main/java/GUI/images/Readme_Game_Panel.PNG "Setup")
 
-Take Care!
+Feel free to try it out!
+Take care
 :smile:
 
 
