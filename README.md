@@ -4,7 +4,7 @@ Mastermind or Master Mind is a code-breaking game. Written in Java with Swing GU
 
 ## Mastermind Game Rules
 
-  The object of MASTERMIND is to guess a secret code consisting of a series of 4
+    The object of MASTERMIND is to guess a secret code consisting of a series of 4
 planets. Each guest results in feedback narrowing down the possibilities of the
 code. The winner is who solves secret code with fewer guesses.
 More info You can find there [there.](https://en.wikipedia.org/wiki/Mastermind_(board_game))
@@ -13,7 +13,8 @@ More info You can find there [there.](https://en.wikipedia.org/wiki/Mastermind_(
 
 The application allow to set up:
 
-:one:  Player name
+:one:  Player name.
+
 :two: Level: one of three (Easy, Medium, Hard).
 
 |    Level      |   Max Planets | Repetative   |   Empty space 
@@ -23,18 +24,18 @@ The application allow to set up:
 | Hard          |     10        |  Yes         |   allowed
 
 :three: Numbers of attempt from 1:10.
+
 :four:  Random or own placeing of planets.
 
-Reference-style: 
+ 
 ![alt text][logo]
 
 [logo]: https://github.com/potepa606/GameMasterMind/blob/master/src/main/java/GUI/images/Readme_First_Panel.png
 
-#### How To play
+#### Board View
 
-- After Settings setup press'Start' button.
+Sample gameplay View
 
-Reference-style: 
 ![alt text][logo]
 
 [logo]: https://github.com/potepa606/GameMasterMind/blob/master/src/main/java/GUI/images/Readme_Game_Panel.png
