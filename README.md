@@ -25,10 +25,7 @@ The application allow to set up:
 3. Numbers of attempt.
 4. Random or own placeing of planets.
 
-Reference-style: 
-![alt text][logo]
-
-[logo]: https://github.com/potepa606/GameMasterMind/tree/master/src/main/java/GUI/images/First_Panel.png "Logo Title Text 2"
+![board view](src/src/main/java/GUI/images/Readme_First_Panel.png)
 
 
 #### 
