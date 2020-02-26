@@ -18,7 +18,7 @@ The application allow to set up:
 
 |    Level      |   Max Planets | Repetative   |   Empty space 
 | ------------- |:-------------:|:------------:|:-------------:
-| EASY          |      7        |  No          | not allowed
+| Easy         |      7        |  No          | not allowed
 | Medium        |      7        |  Yes         | not allowed
 | Hard          |      7        |  Yes         |   allowed
 
