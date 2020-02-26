@@ -18,12 +18,17 @@ The application allow to set up:
 
 |    Level      |   Max Planets | Repetative   |   Empty space 
 | ------------- |:-------------:|:------------:|:-------------:
-| Easy         |      7        |  No          | not allowed
-| Medium        |      7        |  Yes         | not allowed
-| Hard          |      7        |  Yes         |   allowed
+| Easy          |      7        |  No          | not allowed
+| Medium        |     10        |  Yes         | not allowed
+| Hard          |     10        |  Yes         |   allowed
 
 3. Numbers of attempt.
 4. Random or own placeing of planets.
+
+Reference-style: 
+![alt text][logo]
+
+[logo]: https://github.com/potepa606/GameMasterMind/tree/master/src/main/java/GUI/images/First_Panel.png "Logo Title Text 2"
 
 
 #### 
