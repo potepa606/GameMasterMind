@@ -34,8 +34,8 @@ The application allow to set up:
 
 The main goal is break the secret code and put the planets in correct way.
 The hats on the right side indicate the correction of our composition. 
-Corresponding <div class="text-purple"> green </div> hats to display the number of planets that are the correct colors in the correct positions.
-Corresponding red hats to display the number of planets that are the correct colors but incorrect positions.
+Corresponding ***green*** hats to display the number of planets that are the correct colors in the correct positions.
+Corresponding ***red*** hats to display the number of planets that are the correct colors but incorrect positions.
 
  
 ## Board View
