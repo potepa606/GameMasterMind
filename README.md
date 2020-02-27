@@ -44,7 +44,7 @@ Sample gameplay View
  
 ![alt text](https://github.com/potepa606/GameMasterMind/blob/master/src/main/java/GUI/images/Readme_Game_Panel.PNG "Setup")
 
-## Raning List
+## Ranking List
 
 ![alt text](https://github.com/potepa606/GameMasterMind/blob/master/src/main/java/GUI/images/Readme_Ranking.PNG "Ranking")
 
