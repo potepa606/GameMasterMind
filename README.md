@@ -30,12 +30,23 @@ The application allow to set up:
 
 ![alt text1](https://github.com/potepa606/GameMasterMind/blob/master/src/main/java/GUI/images/Readme_First_Panel.png "Game Panel")
 
+## Game Goal 
+
+The main goal is break the secret code and put the planets in correct way.
+The hats on the right side indicate the correction of our composition. 
+Corresponding <div class="text-purple"> green </div> hats to display the number of planets that are the correct colors in the correct positions.
+Corresponding red hats to display the number of planets that are the correct colors but incorrect positions.
+
  
 ## Board View
 
 Sample gameplay View
  
 ![alt text](https://github.com/potepa606/GameMasterMind/blob/master/src/main/java/GUI/images/Readme_Game_Panel.PNG "Setup")
+
+## Raning List
+
+![alt text](https://github.com/potepa606/GameMasterMind/blob/master/src/main/java/GUI/images/Readme_Ranking.PNG "Ranking")
 
 Feel free to try it out and
 Take care
