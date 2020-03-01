@@ -17,11 +17,11 @@ The application allow to set up:
 
 :two: Level: one of three (Easy, Medium, Hard).
 
-|    Level      |   Max planets | Qty to guess     |Repetitive    |   Empty space 
-| ------------- |:-------------:| :---------------:|:------------:|:-------------:
-| Easy          |      7        |         4        |    No        | not allowed
-| Medium        |     10        |         4        |    No        | not allowed
-| Hard          |     10        |         5        |    No        |   allowed
+|    Level      |   Max planets | Qty to guess     |  Empty space 
+| ------------- |:-------------:| :---------------:|:-------------:
+| Easy          |      7        |         4        | not allowed
+| Medium        |     10        |         4        | not allowed
+| Hard          |     10        |         5        |   allowed
 
 :three: Numbers of attempt from 1:10.
 
