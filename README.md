@@ -20,8 +20,8 @@ The application allow to set up:
 |    Level      |   Max planets | Qty to guess     |Repetitive    |   Empty space 
 | ------------- |:-------------:| :---------------:|:------------:|:-------------:
 | Easy          |      7        |         4        |    No        | not allowed
-| Medium        |     10        |         4        |    Yes       | not allowed
-| Hard          |     10        |         5        |    Yes       |   allowed
+| Medium        |     10        |         4        |    No        | not allowed
+| Hard          |     10        |         5        |    No        |   allowed
 
 :three: Numbers of attempt from 1:10.
 
