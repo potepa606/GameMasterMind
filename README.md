@@ -30,6 +30,9 @@ The application allow to set up:
 
 ![alt text1](https://github.com/potepa606/GameMasterMind/blob/master/src/main/java/GUI/images/Readme_First_Panel.png "Game Panel")
 
+A planet random draw is also possible:
+![alt text1](https://user-images.githubusercontent.com/34142069/75781389-5a818200-5d5d-11ea-934c-b3a53f6ab1d9.png)
+
 ## Game Goal 
 
 The main goal is break the secret code and put the planets in correct way.
